@@ -1,23 +1,40 @@
 import logo from './logo.svg';
 import './App.css';
+import CsvUploadBox from './csvUploadBox';
 
-function App() {
+import {
+  client,
+  useConfig,
+  useElementColumns,
+  useElementData,
+ } from "@sigmacomputing/plugin";
+ 
+ 
+ client.config.configureEditorPanel([
+  { name: "source", type: "element" },
+  {
+    name: "Inputs",
+    type: "column",
+    source: "source",
+    allowMultiple: true,
+    allowedTypes: ['datetime', 'integer', 'text', 'boolean', 'number']
+  },
+  { name: "CSV_Columns", label: "CSV Columns", type: "text"}
+ ]);
+ 
+ 
+ const App = () => {
+  const config = useConfig();
+  const props = {
+    config,
+    sigmaCols: useElementColumns(config.source),
+    sigmaData: useElementData(config.source)
+
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <CsvUploadBox props={props}/>
     </div>
   );
 }
