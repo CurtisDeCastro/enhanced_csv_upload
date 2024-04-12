@@ -7,6 +7,9 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
+  flex: 100%;
+  overflow: auto;
+  resize: both;
 }
 
 h1 {

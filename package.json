@@ -12,6 +12,7 @@
     "react-csv-importer": "^0.8.1",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "sigma-react-csv-importer": "^0.8.1",
     "snowflake": "^0.0.0",
     "snowflake-sdk": "^1.10.1",
     "web-vitals": "^2.1.4"

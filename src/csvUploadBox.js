@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Importer, ImporterField } from "react-csv-importer";
+// My fork below:
+// import { Importer, ImporterField } from "sigma-react-csv-importer";
 
 // theme CSS for React CSV Importer
 import "react-csv-importer/dist/index.css";
@@ -11,10 +13,11 @@ const CsvUploadBox = ({props}) => {
   const [refreshNeeded, setRefreshNeeded] = useState(false);
   const uploadColumnsArr = props.config.CSV_Columns === undefined ? [] : props.config.CSV_Columns.split(',').map((val) => val.trim());
   const sigmaCols = Object.keys(props.sigmaCols).map((colName) => colName.split('/')[1]);
-  console.log(uploadColumnsArr)
+  const config = props;
+
   return (
-    <div>
-      <h1>CSV to Snowflake Portal</h1>
+    <div style={{overflow: 'auto', resize: 'both'}}>
+      <h1>CSV Upload to Snowflake</h1>
       {refreshNeeded && <div style={{color: 'green'}}>CSV Successfully Uploaded to Snowflake!</div>}
       {refreshNeeded && <div style={{color: 'red'}}>Please refresh the table to see updated data.</div>}
       <Importer
@@ -32,7 +35,8 @@ const CsvUploadBox = ({props}) => {
                   body: JSON.stringify({
                     row: row,
                     count: counter,
-                    totalRows: length
+                    totalRows: length, 
+                    config,
                   })
                 });
                 resolve(res);
@@ -76,5 +80,3 @@ const CsvUploadBox = ({props}) => {
 };
 
 export default CsvUploadBox;
-
-

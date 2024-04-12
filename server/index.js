@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const snowflakeConnection = snowflake.createConnection({
+let snowflakeConfig = {
     account: process.env.SNOWFLAKE_ACCOUNT,
     username: process.env.SNOWFLAKE_USERNAME,
     password: process.env.SNOWFLAKE_PASSWORD,
@@ -18,7 +18,9 @@ const snowflakeConnection = snowflake.createConnection({
     warehouse: process.env.SNOWFLAKE_WAREHOUSE,
     database: process.env.SNOWFLAKE_DATABASE,
     schema: process.env.SNOWFLAKE_SCHEMA
-});
+};
+
+const snowflakeConnection = snowflake.createConnection(snowflakeConfig);
 
 const tableName = process.env.SNOWFLAKE_TABLE;
 
